@@ -3,17 +3,33 @@ package com.patrushev.students_testing_app.model;
 public class Question {
     private String questionNumber;
     private String questionText;
-    private String[] strings;
+    private String[] variants;
     private String rightVariantNumber;
 
-    public Question(String questionNumber, String questionText, String[] strings, String rightVariantNumber) {
+    public Question(String questionNumber, String questionText, String[] variants, String rightVariantNumber) {
         this.questionNumber = questionNumber;
         this.questionText = questionText;
-        this.strings = strings;
+        this.variants = variants;
         this.rightVariantNumber = rightVariantNumber;
     }
 
     public String getRightAnswer() {
         return null;
+    }
+
+    public String getQuestionNumber() {
+        return questionNumber;
+    }
+
+    public String getQuestionText() {
+        return questionText;
+    }
+
+    public String[] getVariants() {
+        return variants;
+    }
+
+    public String getRightVariantNumber() {
+        return rightVariantNumber;
     }
 }

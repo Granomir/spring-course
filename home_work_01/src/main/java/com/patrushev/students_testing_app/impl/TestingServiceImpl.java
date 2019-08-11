@@ -22,7 +22,6 @@ public class TestingServiceImpl implements TestingService {
         }
     }
 
-    //TODO тут остановился!!!
     private void askStudent(Question question) {
         userInteractingService.showQuestion(question);
         String userAnswer = userInputService.getUserInput();

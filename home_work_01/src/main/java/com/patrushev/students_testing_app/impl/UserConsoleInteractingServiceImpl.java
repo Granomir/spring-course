@@ -6,7 +6,15 @@ import com.patrushev.students_testing_app.model.Student;
 
 public class UserConsoleInteractingServiceImpl implements UserInteractingService {
     public void showQuestion(Question question) {
-        System.out.println();
+        System.out.println("Вопрос №" + question.getQuestionNumber() + ":");
+        System.out.println(question.getQuestionText());
+        System.out.println("Варианты ответа:");
+        int count = 1;
+        for (String variant : question.getVariants()) {
+            System.out.println(count + ". " + variant);
+            count++;
+        }
+        System.out.println("Введите номер правильного ответа");
     }
 
     public void greetUser() {
@@ -22,6 +30,6 @@ public class UserConsoleInteractingServiceImpl implements UserInteractingService
     }
 
     public void showResult(Student student) {
-
+        System.out.println("Студент " + student.getName() + " " + student.getSurname() + " правильно ответил на " + student.getPoints() + " вопросов");
     }
 }

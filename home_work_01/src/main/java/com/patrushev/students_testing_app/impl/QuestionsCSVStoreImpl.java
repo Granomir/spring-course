@@ -8,13 +8,25 @@ import org.apache.commons.csv.CSVRecord;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class QuestionsCSVStoreImpl implements QuestionsStore {
+    private Properties config;
+
+    public QuestionsCSVStoreImpl() {
+        this.config = new Properties();
+        try (FileInputStream fis = new FileInputStream("src/main/resources/config.properties")) {
+            config.load(fis);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public List<Question> getQuestions() {
         List<Question> questionList = new ArrayList<>();
         Iterable<CSVRecord> records;
-        try (Reader fileReader = new FileReader("resources/questions.csv")) {
+        try (Reader fileReader = new FileReader(config.getProperty("csv.path"))) {
             String[] headers = new String[]{"number", "question", "firstVariant", "secondVariant", "rightVariant"};
             records = CSVFormat.DEFAULT
                     .withHeader(headers)
