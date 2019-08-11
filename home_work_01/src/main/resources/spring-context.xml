@@ -4,7 +4,22 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <bean id="questionsStore" class="com.patrushev.students_testing_app.impl.QuestionsCSVStoreImpl">
+    </bean>
 
+    <bean id="questionsService" class="com.patrushev.students_testing_app.impl.QuestionsServiceImpl">
+        <constructor-arg name="questionsStore" ref="questionsStore"/>
+    </bean>
 
+    <bean id="userInputService" class="com.patrushev.students_testing_app.impl.UserConsoleInputServiceImpl">
+    </bean>
 
+    <bean id="userInteractingService" class="com.patrushev.students_testing_app.impl.UserConsoleInteractingServiceImpl">
+    </bean>
+
+    <bean id="testingService" class="com.patrushev.students_testing_app.impl.TestingServiceImpl">
+        <constructor-arg name="userInteractingService" ref="userInteractingService"/>
+        <constructor-arg name="userInputService" ref="userInputService"/>
+        <constructor-arg name="questionsService" ref="questionsService"/>
+    </bean>
 </beans>

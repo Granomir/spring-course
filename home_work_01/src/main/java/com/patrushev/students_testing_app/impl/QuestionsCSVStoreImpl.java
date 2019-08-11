@@ -15,7 +15,7 @@ public class QuestionsCSVStoreImpl implements QuestionsStore {
 
     public QuestionsCSVStoreImpl() {
         this.config = new Properties();
-        try (FileInputStream fis = new FileInputStream("src/main/resources/config.properties")) {
+        try (FileInputStream fis = new FileInputStream("home_work_01\\src\\main\\resources\\config.properties")) {
             config.load(fis);
         } catch (IOException e) {
             e.printStackTrace();
