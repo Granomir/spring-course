@@ -34,8 +34,7 @@ public class TestingServiceImpl implements TestingService {
     private void askStudent(Question question) {
         userInteractingService.showQuestion(question);
         String userAnswer = userInputService.getUserInput();
-        if (userAnswer.equals(question.getRightAnswer())) {
-            //TODO сюда не попадает даже если ввести правильно
+        if (userAnswer.equals(question.getRightVariantNumber())) {
             student.addPoint();
         }
     }

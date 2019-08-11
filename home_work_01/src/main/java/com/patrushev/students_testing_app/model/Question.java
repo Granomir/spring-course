@@ -13,10 +13,6 @@ public class Question {
         this.rightVariantNumber = rightVariantNumber;
     }
 
-    public String getRightAnswer() {
-        return null;
-    }
-
     public String getQuestionNumber() {
         return questionNumber;
     }
