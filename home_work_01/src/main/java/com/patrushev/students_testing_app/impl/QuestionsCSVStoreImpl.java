@@ -5,9 +5,13 @@ import com.patrushev.students_testing_app.model.Question;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Properties;
 
 public class QuestionsCSVStoreImpl implements QuestionsStore {
@@ -15,8 +19,8 @@ public class QuestionsCSVStoreImpl implements QuestionsStore {
 
     public QuestionsCSVStoreImpl() {
         this.config = new Properties();
-        try (FileInputStream fis = new FileInputStream("home_work_01\\src\\main\\resources\\config.properties")) {
-            config.load(fis);
+        try (InputStream configSource = getClass().getClassLoader().getResourceAsStream("config.properties")) {
+            config.load(configSource);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -25,13 +29,10 @@ public class QuestionsCSVStoreImpl implements QuestionsStore {
     @Override
     public List<Question> getQuestions() {
         List<Question> questionList = new ArrayList<>();
-        Iterable<CSVRecord> records;
-        try (Reader fileReader = new FileReader(config.getProperty("csv.path"))) {
-            String[] headers = new String[]{"number", "question", "firstVariant", "secondVariant", "rightVariant"};
-            records = CSVFormat.DEFAULT
-                    .withHeader(headers)
+        try (Reader reader = new InputStreamReader(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(config.getProperty("csv.file"))))) {
+            Iterable<CSVRecord> records = CSVFormat.DEFAULT
                     .withFirstRecordAsHeader()
-                    .parse(fileReader);
+                    .parse(reader);
             for (CSVRecord record : records) {
                 addQuestion(questionList, record);
             }
