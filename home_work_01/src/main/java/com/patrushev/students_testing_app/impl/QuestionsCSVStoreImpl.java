@@ -20,7 +20,7 @@ public class QuestionsCSVStoreImpl implements QuestionsStore {
     public QuestionsCSVStoreImpl() {
         this.config = new Properties();
         try (InputStream configSource = getClass().getClassLoader().getResourceAsStream("config.properties")) {
-            config.load(configSource);
+            config.load(Objects.requireNonNull(configSource));
         } catch (IOException e) {
             e.printStackTrace();
         }
