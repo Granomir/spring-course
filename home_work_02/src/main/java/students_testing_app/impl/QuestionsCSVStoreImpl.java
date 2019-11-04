@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
+@PropertySource("classpath:application.properties")
 public class QuestionsCSVStoreImpl implements QuestionsStore {
 
     @Value("${csv.file}")

@@ -9,12 +9,12 @@ import students_testing_app.model.Student;
 public class UserConsoleInteractingServiceImpl implements UserInteractingService {
     @Override
     public void showQuestion(Question question) {
-        System.out.println("Вопрос №" + question.getQuestionNumber() + ":");
+        System.out.println(String.format("Вопрос № %s:", question.getQuestionNumber()));
         System.out.println(question.getQuestionText());
         System.out.println("Варианты ответа:");
         int count = 1;
         for (String variant : question.getVariants()) {
-            System.out.println(count + ". " + variant);
+            System.out.println(String.format("%d. %s", count, variant));
             count++;
         }
         System.out.println("Введите номер правильного ответа");
@@ -37,6 +37,6 @@ public class UserConsoleInteractingServiceImpl implements UserInteractingService
 
     @Override
     public void showResult(Student student) {
-        System.out.println("Студент " + student.getName() + " " + student.getSurname() + " правильно ответил на " + student.getPoints() + " вопросов");
+        System.out.println(String.format("Студент %s %s правильно ответил на %d вопросов", student.getName(), student.getSurname(), student.getPoints()));
     }
 }
