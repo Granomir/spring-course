@@ -19,8 +19,11 @@ import java.util.Objects;
 @PropertySource("classpath:application.properties")
 public class QuestionsCSVStoreImpl implements QuestionsStore {
 
-    @Value("${csv.file}")
     private String questionsFileSource;
+
+    public QuestionsCSVStoreImpl(@Value("${locale}") String locale, @Value("${csv.prefix}") String questionsFilePrefix) {
+        questionsFileSource = String.format("%s_%s.csv", questionsFilePrefix, locale);
+    }
 
     @Override
     public List<Question> getQuestions() {
