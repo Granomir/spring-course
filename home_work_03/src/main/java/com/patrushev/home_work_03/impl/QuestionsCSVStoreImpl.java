@@ -1,11 +1,10 @@
 package com.patrushev.home_work_03.impl;
 
+import com.patrushev.home_work_03.ApplicationSettings;
 import com.patrushev.home_work_03.QuestionsStore;
 import com.patrushev.home_work_03.model.Question;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -16,13 +15,12 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-@PropertySource("classpath:application.yml")
 public class QuestionsCSVStoreImpl implements QuestionsStore {
 
     private String questionsFileSource;
 
-    public QuestionsCSVStoreImpl(@Value("${locale}") String locale, @Value("${csv.prefix}") String questionsFilePrefix) {
-        questionsFileSource = String.format("%s_%s.csv", questionsFilePrefix, locale);
+    public QuestionsCSVStoreImpl(ApplicationSettings settings) {
+        questionsFileSource = String.format("%s_%s.csv", settings.getCsvPrefix(), settings.getLocale());
     }
 
     @Override

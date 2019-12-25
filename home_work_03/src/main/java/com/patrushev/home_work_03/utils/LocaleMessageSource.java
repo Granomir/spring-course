@@ -1,5 +1,6 @@
 package com.patrushev.home_work_03.utils;
 
+import com.patrushev.home_work_03.ApplicationSettings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
@@ -13,9 +14,9 @@ public class LocaleMessageSource {
     private Locale currentLocale;
 
     @Autowired
-    public LocaleMessageSource(MessageSource messageSource, @Value("${locale}") String locale) {
+    public LocaleMessageSource(MessageSource messageSource, ApplicationSettings settings) {
         this.messageSource = messageSource;
-        currentLocale = getCurrentLocale(locale);
+        currentLocale = getCurrentLocale(settings.getLocale());
     }
 
     private Locale getCurrentLocale(String locale) {

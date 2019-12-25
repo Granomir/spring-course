@@ -16,7 +16,7 @@ class QuestionsStoreTest {
     private QuestionsStore questionsStore;
 
     @Test
-    void getQuestions() {
+    void getQuestionsShouldBeOnlyOneAndCorrect() {
         final List<Question> questions = questionsStore.getQuestions();
         assertEquals(1, questions.size());
         final Question question = new Question("1", "вопрос1", new String[]{"ответ1", "ответ2"}, "1");
