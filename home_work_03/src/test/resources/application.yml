@@ -1,2 +1,3 @@
-csv.prefix: questions
-locale: ru_RU
+application:
+  csvPrefix: questions
+  locale: ru_RU
