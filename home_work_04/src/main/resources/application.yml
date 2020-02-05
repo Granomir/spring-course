@@ -1,0 +1,10 @@
+application:
+  csv-prefix: questions
+  locale: en_EU
+  adminName: roman
+  adminPassword: patr
+
+spring:
+  shell:
+    interactive:
+      enabled: true
