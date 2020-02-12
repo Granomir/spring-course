@@ -21,6 +21,7 @@
         <module>home_work_02</module>
         <module>home_work_03</module>
         <module>home_work_04</module>
+        <module>home_work_05</module>
     </modules>
 
     <properties>
@@ -39,6 +40,11 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>1.7.25</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 
