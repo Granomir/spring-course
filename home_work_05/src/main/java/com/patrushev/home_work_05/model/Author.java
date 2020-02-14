@@ -6,8 +6,12 @@ import lombok.RequiredArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class Author {
+
+    public Author(String name) {
+        this.name = name;
+    }
+
     private int id;
-    private final String name;
+    private String name;
 }

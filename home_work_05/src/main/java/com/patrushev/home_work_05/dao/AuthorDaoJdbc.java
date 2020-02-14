@@ -2,6 +2,7 @@ package com.patrushev.home_work_05.dao;
 
 import com.patrushev.home_work_05.model.Author;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
@@ -12,10 +13,11 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-@SuppressWarnings({"SqlDialectInspection", "SqlNoDataSourceInspection"})
+@SuppressWarnings({"SqlNoDataSourceInspection", "SqlResolve"})
 public class AuthorDaoJdbc implements AuthorDao {
     private final NamedParameterJdbcOperations jdbc;
 
@@ -32,7 +34,12 @@ public class AuthorDaoJdbc implements AuthorDao {
     public Author getById(int id) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id", id);
-        return jdbc.queryForObject("select * from authors where id = :id", params, new AuthorMapper());
+        try {
+            return jdbc.queryForObject("select * from authors where id = :id", params, new AuthorMapper());
+        } catch (EmptyResultDataAccessException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
@@ -54,6 +61,11 @@ public class AuthorDaoJdbc implements AuthorDao {
     public int count() {
         // noinspection ConstantConditions
         return jdbc.queryForObject("select count(*) from authors", new HashMap<>(), Integer.class);
+    }
+
+    @Override
+    public List<Author> getAll() {
+        return jdbc.query("select * from authors", new AuthorMapper());
     }
 
     private static class AuthorMapper implements RowMapper<Author> {
