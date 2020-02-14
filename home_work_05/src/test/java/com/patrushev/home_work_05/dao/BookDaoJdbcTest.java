@@ -1,20 +1,14 @@
 package com.patrushev.home_work_05.dao;
 
 import com.patrushev.home_work_05.model.Author;
+import com.patrushev.home_work_05.model.Genre;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
-class AuthorDaoJdbcTest {
-
-    @Autowired
-    private AuthorDao authorDao;
+class BookDaoJdbcTest {
 
     @BeforeEach
     void setUp() {
@@ -26,11 +20,11 @@ class AuthorDaoJdbcTest {
 
     @Test
     void insert() {
-        Author tolkin = new Author("Толкин");
-        final int id = authorDao.insert(tolkin);
-        tolkin.setId(id);
-        final Author mustBeTolkin = authorDao.getById(id);
-        assertEquals(tolkin, mustBeTolkin);
+//        final Author author = new Author(10, "Толкин");
+//        final Genre genre = new Genre(10, "Фантастика");
+//
+//        final Author mustBeTolkin = authorDao.getById(10);
+//        assertEquals(author, mustBeTolkin);
     }
 
     @Test

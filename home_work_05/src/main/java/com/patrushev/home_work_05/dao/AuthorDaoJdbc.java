@@ -3,13 +3,15 @@ package com.patrushev.home_work_05.dao;
 import com.patrushev.home_work_05.model.Author;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
@@ -18,32 +20,33 @@ public class AuthorDaoJdbc implements AuthorDao {
     private final NamedParameterJdbcOperations jdbc;
 
     @Override
-    public void insert(Author author) {
-        Map<String, Object> params = new HashMap<>(2);
-        params.put("id", author.getId());
-        params.put("name", author.getName());
-        jdbc.update("insert into authors (id, name) values (:id, :name)", params);
+    public int insert(Author author) {
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("name", author.getName());
+        jdbc.update("insert into authors (name) values (:name)", params, keyHolder);
+        return (int) keyHolder.getKey();
     }
 
     @Override
     public Author getById(int id) {
-        Map<String, Object> params = new HashMap<>(1);
-        params.put("id", id);
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("id", id);
         return jdbc.queryForObject("select * from authors where id = :id", params, new AuthorMapper());
     }
 
     @Override
     public void update(Author author) {
-        Map<String, Object> params = new HashMap<>(2);
-        params.put("id", author.getId());
-        params.put("name", author.getName());
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("id", author.getId());
+        params.addValue("name", author.getName());
         jdbc.update("update authors set name = :name where id = :id", params);
     }
 
     @Override
     public void deleteById(int id) {
-        Map<String, Object> params = new HashMap<>(1);
-        params.put("id", id);
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("id", id);
         jdbc.update("delete from authors where id = :id", params);
     }
 
