@@ -13,6 +13,7 @@ import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
+@SuppressWarnings({"SqlDialectInspection", "SqlNoDataSourceInspection"})
 public class AuthorDaoJdbc implements AuthorDao {
     private final NamedParameterJdbcOperations jdbc;
 
@@ -21,7 +22,6 @@ public class AuthorDaoJdbc implements AuthorDao {
         Map<String, Object> params = new HashMap<>(2);
         params.put("id", author.getId());
         params.put("name", author.getName());
-        //noinspection SqlResolve
         jdbc.update("insert into authors (id, name) values (:id, :name)", params);
     }
 
@@ -29,7 +29,6 @@ public class AuthorDaoJdbc implements AuthorDao {
     public Author getById(int id) {
         Map<String, Object> params = new HashMap<>(1);
         params.put("id", id);
-        //noinspection SqlResolve
         return jdbc.queryForObject("select * from authors where id = :id", params, new AuthorMapper());
     }
 
@@ -38,23 +37,23 @@ public class AuthorDaoJdbc implements AuthorDao {
         Map<String, Object> params = new HashMap<>(2);
         params.put("id", author.getId());
         params.put("name", author.getName());
-        //noinspection SqlResolve
         jdbc.update("update authors set name = :name where id = :id", params);
     }
 
     @Override
-    public void delete(int id) {
-
+    public void deleteById(int id) {
+        Map<String, Object> params = new HashMap<>(1);
+        params.put("id", id);
+        jdbc.update("delete from authors where id = :id", params);
     }
 
     @Override
     public int count() {
-        //noinspection ConstantConditions,SqlResolve
+        // noinspection ConstantConditions
         return jdbc.queryForObject("select count(*) from authors", new HashMap<>(), Integer.class);
     }
 
     private static class AuthorMapper implements RowMapper<Author> {
-
         @Override
         public Author mapRow(ResultSet rs, int rowNum) throws SQLException {
             int id = rs.getInt("id");

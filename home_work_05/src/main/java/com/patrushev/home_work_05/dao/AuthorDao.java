@@ -6,6 +6,6 @@ public interface AuthorDao {
     void insert(Author author);
     Author getById(int id);
     void update(Author author);
-    void delete(int id);
+    void deleteById(int id);
     int count();
 }
