@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 //@DataJpaTest
-//@ExtendWith(SpringExtension.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 class AuthorDaoJdbcTest {
     //TODO разобраться с тестированием репозиториев и чтобы в каждом методе БД инициализировалась по новой
