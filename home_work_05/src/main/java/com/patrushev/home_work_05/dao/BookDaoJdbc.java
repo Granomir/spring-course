@@ -32,7 +32,7 @@ public class BookDaoJdbc implements BookDao {
         params.addValue("title", book.getTitle());
         params.addValue("author", book.getAuthor().getId());
         params.addValue("genre", book.getGenre().getId());
-        jdbc.update("insert into books (id, title, author, genre) values (:id, :title, :author, :genre)", params, keyHolder);
+        jdbc.update("insert into books (title, author, genre) values (:title, :author, :genre)", params, keyHolder);
         return (int) keyHolder.getKey();
     }
 
@@ -41,7 +41,7 @@ public class BookDaoJdbc implements BookDao {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id", id);
         try {
-            return jdbc.queryForObject("select * from books where id = :id", params, new BookMapper(authorDao, genreDao));
+            return jdbc.queryForObject("select * from books where id = :id", params, new BookMapper());
         } catch (EmptyResultDataAccessException e) {
             e.printStackTrace();
             return null;
@@ -73,13 +73,11 @@ public class BookDaoJdbc implements BookDao {
 
     @Override
     public List<Book> getAll() {
-        return jdbc.query("select * from books", new BookMapper(authorDao, genreDao));
+        return jdbc.query("select * from books", new BookMapper());
     }
 
     @RequiredArgsConstructor
-    private static class BookMapper implements RowMapper<Book> {
-        private final AuthorDao authorDao;
-        private final GenreDao genreDao;
+    private class BookMapper implements RowMapper<Book> {
 
         @Override
         public Book mapRow(ResultSet rs, int rowNum) throws SQLException {
