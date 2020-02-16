@@ -61,6 +61,10 @@ class AuthorDaoJdbcTest {
 
     @Test
     void count() {
+        System.out.println(authorDao.count());
+        Author tolkin = new Author("Толкин");
+        int id = authorDao.insert(tolkin);
+        System.out.println(authorDao.count());
     }
 
     @Test
