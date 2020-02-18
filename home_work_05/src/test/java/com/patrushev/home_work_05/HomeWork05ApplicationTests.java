@@ -5,12 +5,7 @@ import com.patrushev.home_work_05.model.Author;
 import com.patrushev.home_work_05.model.Book;
 import com.patrushev.home_work_05.model.Genre;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.SpringBootConfiguration;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
 
-//@SpringBootConfiguration
 class HomeWork05ApplicationTests {
 
     @Test

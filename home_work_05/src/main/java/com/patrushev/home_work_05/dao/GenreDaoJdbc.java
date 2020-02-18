@@ -17,7 +17,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-@SuppressWarnings({"SqlNoDataSourceInspection", "SqlResolve"})
+@SuppressWarnings({"SqlNoDataSourceInspection", "SqlResolve", "SqlDialectInspection"})
 public class GenreDaoJdbc implements GenreDao {
     private final NamedParameterJdbcOperations jdbc;
 
@@ -26,7 +26,7 @@ public class GenreDaoJdbc implements GenreDao {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("name", genre.getName());
-        jdbc.update("insert into genre (name) values (:name)", params, keyHolder);
+        jdbc.update("insert into genres (name) values (:name)", params, keyHolder);
         return (int) keyHolder.getKey();
     }
 

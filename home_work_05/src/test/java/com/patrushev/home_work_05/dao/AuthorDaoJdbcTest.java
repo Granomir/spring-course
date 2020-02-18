@@ -1,34 +1,24 @@
 package com.patrushev.home_work_05.dao;
 
 import com.patrushev.home_work_05.model.Author;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import java.util.List;
 
-//@DataJpaTest
+import static org.junit.jupiter.api.Assertions.*;
+
 @ExtendWith(SpringExtension.class)
-@SpringBootTest
+@JdbcTest
+@ComponentScan
 class AuthorDaoJdbcTest {
-    //TODO разобраться с тестированием репозиториев и чтобы в каждом методе БД инициализировалась по новой
 
     @Autowired
     private AuthorDao authorDao;
-
-    @BeforeEach
-    void setUp() {
-    }
-
-    @AfterEach
-    void tearDown() {
-    }
 
     @Test
     void insert_ThanGetTheSameAuthorById() {
@@ -42,10 +32,12 @@ class AuthorDaoJdbcTest {
     @Test
     void update_ThanGetTheSameUpdatedAuthorById() {
         Author author = authorDao.getById(1);
+        String oldName = author.getName();
         author.setName("Rowling");
         authorDao.update(author);
         Author updatedAuthor = authorDao.getById(1);
         assertEquals(author, updatedAuthor);
+        assertNotEquals(oldName, updatedAuthor.getName());
     }
 
     @Test
@@ -61,14 +53,12 @@ class AuthorDaoJdbcTest {
 
     @Test
     void count() {
-        System.out.println(authorDao.count());
-        Author tolkin = new Author("Толкин");
-        int id = authorDao.insert(tolkin);
-        System.out.println(authorDao.count());
+        assertEquals(6, authorDao.count());
     }
 
     @Test
     void getAll() {
-
+        List<Author> all = authorDao.getAll();
+        assertEquals(6, all.size());
     }
 }
