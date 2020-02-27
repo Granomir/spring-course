@@ -15,10 +15,9 @@ public class EventsCommands {
 
     private final ApplicationSettings settings;
     private final TestingService testingService;
-    private final UserInputService userInputService;
     private final LocaleMessageSource messageSource;
 
-    @ShellMethod(value = "Login command.", key = {"l", "login"})
+    @ShellMethod(value = "Login command.", key = "l")
     public String login(@ShellOption(arity = 2) String adminCredentials) {
         String[] credentials = adminCredentials.split(",");
         if (credentials[0].equals(settings.getAdminName()) & credentials[1].equals(settings.getAdminPassword())) {
