@@ -1,28 +1,19 @@
 package com.patrushev.home_work_06.dao;
 
-import com.patrushev.home_work_06.model.Book;
 import com.patrushev.home_work_06.model.Genre;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
 
 @Repository
 @Transactional
 @RequiredArgsConstructor
-public class GenreDaoJdbc implements GenreDao {
+public class GenreDaoJpa implements GenreDao {
 
     @PersistenceContext
     private EntityManager em;
@@ -41,17 +32,21 @@ public class GenreDaoJdbc implements GenreDao {
 
     @Override
     public void update(Genre genre) {
-        MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("id", genre.getId());
-        params.addValue("name", genre.getName());
-        jdbc.update("update genres set name = :name where id = :id", params);
+        TypedQuery<Genre> query = em.createQuery(
+                "update Genre e set e.name = :name where e.id = :id",
+                Genre.class);
+        query.setParameter("id", genre.getId());
+        query.setParameter("name", genre.getName());
+        query.executeUpdate();
     }
 
     @Override
     public void deleteById(int id) {
-        MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("id", id);
-        jdbc.update("delete from genres where id = :id", params);
+        TypedQuery<Genre> query = em.createQuery(
+                "delete from Genre e where e.id = :id",
+                Genre.class);
+        query.setParameter("id", id);
+        query.executeUpdate();
     }
 
     @Override

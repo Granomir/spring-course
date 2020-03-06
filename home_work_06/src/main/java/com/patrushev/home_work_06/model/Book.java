@@ -18,11 +18,10 @@ public class Book {
     @Column(name = "title")
     private String title;
     @ManyToOne
-    @Column(name = "author")
+    @JoinColumn(name = "author")
     private Author author;
-    //TODO нужны ли тут join'ы???
     @ManyToOne
-    @Column(name = "genre")
+    @JoinColumn(name = "genre")
     private Genre genre;
 
     public Book(String title, Author author, Genre genre) {

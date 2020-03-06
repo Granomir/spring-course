@@ -2,7 +2,6 @@ package com.patrushev.home_work_06.dao;
 
 import com.patrushev.home_work_06.model.Author;
 import lombok.RequiredArgsConstructor;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +13,7 @@ import java.util.List;
 @Repository
 @Transactional
 @RequiredArgsConstructor
-public class AuthorDaoJdbc implements AuthorDao {
+public class AuthorDaoJpa implements AuthorDao {
 
     @PersistenceContext
     private EntityManager em;
@@ -33,10 +32,6 @@ public class AuthorDaoJdbc implements AuthorDao {
 
     @Override
     public void update(Author author) {
-//        MapSqlParameterSource params = new MapSqlParameterSource();
-//        params.addValue("id", author.getId());
-//        params.addValue("name", author.getName());
-//        jdbc.update("update authors set name = :name where id = :id", params);
         TypedQuery<Author> query = em.createQuery(
                 "update Author e set e.name = :name where e.id = :id",
                 Author.class);
@@ -47,9 +42,11 @@ public class AuthorDaoJdbc implements AuthorDao {
 
     @Override
     public void deleteById(int id) {
-        MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("id", id);
-        jdbc.update("delete from authors where id = :id", params);
+        TypedQuery<Author> query = em.createQuery(
+                "delete from Author e where e.id = :id",
+                Author.class);
+        query.setParameter("id", id);
+        query.executeUpdate();
     }
 
     @Override

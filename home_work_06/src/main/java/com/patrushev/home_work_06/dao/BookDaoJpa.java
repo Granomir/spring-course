@@ -1,35 +1,22 @@
 package com.patrushev.home_work_06.dao;
 
-import com.patrushev.home_work_06.model.Author;
 import com.patrushev.home_work_06.model.Book;
-import com.patrushev.home_work_06.model.Genre;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
 
 @Repository
 @Transactional
 @RequiredArgsConstructor
-public class BookDaoJdbc implements BookDao {
+public class BookDaoJpa implements BookDao {
 
     @PersistenceContext
     private EntityManager em;
-
-    private final AuthorDao authorDao;
-    private final GenreDao genreDao;
 
     @Override
     public int insert(Book book) {
@@ -45,19 +32,23 @@ public class BookDaoJdbc implements BookDao {
 
     @Override
     public void update(Book book) {
-        MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("id", book.getId());
-        params.addValue("title", book.getTitle());
-        params.addValue("author", book.getAuthor().getId());
-        params.addValue("genre", book.getGenre().getId());
-        jdbc.update("update books set title = :title, author = :author, genre = :genre where id = :id", params);
+        TypedQuery<Book> query = em.createQuery(
+                "update Book e set e.title = :title, e.author = :author, e.genre = :genre where e.id = :id",
+                Book.class);
+        query.setParameter("id", book.getId());
+        query.setParameter("title", book.getTitle());
+        query.setParameter("author", book.getAuthor().getId());
+        query.setParameter("genre", book.getGenre().getId());
+        query.executeUpdate();
     }
 
     @Override
     public void deleteById(int id) {
-        MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("id", id);
-        jdbc.update("delete from books where id = :id", params);
+        TypedQuery<Book> query = em.createQuery(
+                "delete from Book e where e.id = :id",
+                Book.class);
+        query.setParameter("id", id);
+        query.executeUpdate();
     }
 
     @Override
