@@ -10,6 +10,6 @@ public interface AuthorDao {
     Author getById(int id);
     void update(Author author);
     void deleteById(int id);
-    int count();
+    long count();
     List<Author> getAll();
 }

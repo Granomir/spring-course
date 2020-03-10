@@ -4,13 +4,21 @@ import com.patrushev.home_work_06.model.Author;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
+@DirtiesContext
+@Import(AuthorDaoJpa.class)
 class AuthorDaoJpaTest {
+
+    @Autowired
+    TestEntityManager em;
 
     @Autowired
     private AuthorDao authorDao;
@@ -39,9 +47,9 @@ class AuthorDaoJpaTest {
     void insertAuthor_ThanDelete_ThanGettingAuthorByIdNotExistReturnNull() {
         Author tolstoy = new Author("Толстой");
         int id = authorDao.insert(tolstoy);
-        int beforeDeletion = authorDao.count();
+        long beforeDeletion = authorDao.count();
         authorDao.deleteById(id);
-        int afterDeletion = authorDao.count();
+        long afterDeletion = authorDao.count();
         assertEquals(1, beforeDeletion - afterDeletion);
         assertNull(authorDao.getById(id));
     }

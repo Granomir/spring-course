@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -32,9 +33,8 @@ public class AuthorDaoJpa implements AuthorDao {
 
     @Override
     public void update(Author author) {
-        TypedQuery<Author> query = em.createQuery(
-                "update Author e set e.name = :name where e.id = :id",
-                Author.class);
+        Query query = em.createQuery(
+                "update Author e set e.name = :name where e.id = :id");
         query.setParameter("id", author.getId());
         query.setParameter("name", author.getName());
         query.executeUpdate();
@@ -42,18 +42,17 @@ public class AuthorDaoJpa implements AuthorDao {
 
     @Override
     public void deleteById(int id) {
-        TypedQuery<Author> query = em.createQuery(
-                "delete from Author e where e.id = :id",
-                Author.class);
+        Query query = em.createQuery(
+                "delete from Author e where e.id = :id");
         query.setParameter("id", id);
         query.executeUpdate();
     }
 
     @Override
-    public int count() {
-        TypedQuery<Integer> query = em.createQuery(
+    public long count() {
+        TypedQuery<Long> query = em.createQuery(
                 "select count(e) from Author e",
-                Integer.class);
+                Long.class);
         return query.getSingleResult();
     }
 
