@@ -49,9 +49,9 @@ class BookDaoJpaTest {
     void insertBook_ThanDelete_ThanGettingBookByIdNotExistReturnNull() {
         Book warcraft2 = new Book("Варкрафт 2", new Author(2, "Стивен Кинг"), new Genre(2, "Мистика"));
         long id = bookDao.insert(warcraft2);
-        int beforeDeletion = bookDao.count();
+        long beforeDeletion = bookDao.count();
         bookDao.deleteById(id);
-        int afterDeletion = bookDao.count();
+        long afterDeletion = bookDao.count();
         assertEquals(1, beforeDeletion - afterDeletion);
         assertNull(bookDao.getById(id));
     }

@@ -10,6 +10,6 @@ public interface BookDao {
     Book getById(long id);
     void update(Book book);
     void deleteById(long id);
-    int count();
+    long count();
     List<Book> getAll();
 }

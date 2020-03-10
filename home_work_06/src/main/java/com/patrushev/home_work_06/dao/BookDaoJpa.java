@@ -37,8 +37,8 @@ public class BookDaoJpa implements BookDao {
                 "update Book e set e.title = :title, e.author = :author, e.genre = :genre where e.id = :id");
         query.setParameter("id", book.getId());
         query.setParameter("title", book.getTitle());
-        query.setParameter("author", book.getAuthor().getId());
-        query.setParameter("genre", book.getGenre().getId());
+        query.setParameter("author", book.getAuthor());
+        query.setParameter("genre", book.getGenre());
         query.executeUpdate();
     }
 
@@ -48,13 +48,14 @@ public class BookDaoJpa implements BookDao {
                 "delete from Book e where e.id = :id");
         query.setParameter("id", id);
         query.executeUpdate();
+        em.clear();
     }
 
     @Override
-    public int count() {
-        TypedQuery<Integer> query = em.createQuery(
+    public long count() {
+        TypedQuery<Long> query = em.createQuery(
                 "select count(e) from Book e",
-                Integer.class);
+                Long.class);
         return query.getSingleResult();
     }
 

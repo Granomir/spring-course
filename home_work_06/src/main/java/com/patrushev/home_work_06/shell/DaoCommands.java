@@ -38,7 +38,7 @@ public class DaoCommands {
     }
 
     @ShellMethod(value = "Count books.", key = "countBooks")
-    public int count() {
+    public long count() {
         return dao.count();
     }
 
