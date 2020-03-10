@@ -20,14 +20,14 @@ public class AuthorDaoJpa implements AuthorDao {
     private EntityManager em;
 
     @Override
-    public int insert(Author author) {
+    public long insert(Author author) {
         em.persist(author);
         em.flush();
         return author.getId();
     }
 
     @Override
-    public Author getById(int id) {
+    public Author getById(long id) {
         return em.find(Author.class, id);
     }
 
@@ -41,11 +41,12 @@ public class AuthorDaoJpa implements AuthorDao {
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteById(long id) {
         Query query = em.createQuery(
                 "delete from Author e where e.id = :id");
         query.setParameter("id", id);
         query.executeUpdate();
+        em.clear();
     }
 
     @Override

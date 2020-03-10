@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -19,22 +20,21 @@ public class BookDaoJpa implements BookDao {
     private EntityManager em;
 
     @Override
-    public int insert(Book book) {
+    public long insert(Book book) {
         em.persist(book);
         em.flush();
         return book.getId();
     }
 
     @Override
-    public Book getById(int id) {
+    public Book getById(long id) {
         return em.find(Book.class, id);
     }
 
     @Override
     public void update(Book book) {
-        TypedQuery<Book> query = em.createQuery(
-                "update Book e set e.title = :title, e.author = :author, e.genre = :genre where e.id = :id",
-                Book.class);
+        Query query = em.createQuery(
+                "update Book e set e.title = :title, e.author = :author, e.genre = :genre where e.id = :id");
         query.setParameter("id", book.getId());
         query.setParameter("title", book.getTitle());
         query.setParameter("author", book.getAuthor().getId());
@@ -43,10 +43,9 @@ public class BookDaoJpa implements BookDao {
     }
 
     @Override
-    public void deleteById(int id) {
-        TypedQuery<Book> query = em.createQuery(
-                "delete from Book e where e.id = :id",
-                Book.class);
+    public void deleteById(long id) {
+        Query query = em.createQuery(
+                "delete from Book e where e.id = :id");
         query.setParameter("id", id);
         query.executeUpdate();
     }

@@ -6,10 +6,10 @@ import com.patrushev.home_work_06.model.Book;
 import java.util.List;
 
 public interface BookDao {
-    int insert(Book book);
-    Book getById(int id);
+    long insert(Book book);
+    Book getById(long id);
     void update(Book book);
-    void deleteById(int id);
+    void deleteById(long id);
     int count();
     List<Book> getAll();
 }

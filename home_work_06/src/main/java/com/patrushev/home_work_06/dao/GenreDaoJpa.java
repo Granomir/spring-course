@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -19,41 +20,40 @@ public class GenreDaoJpa implements GenreDao {
     private EntityManager em;
 
     @Override
-    public int insert(Genre genre) {
+    public long insert(Genre genre) {
         em.persist(genre);
         em.flush();
         return genre.getId();
     }
 
     @Override
-    public Genre getById(int id) {
+    public Genre getById(long id) {
         return em.find(Genre.class, id);
     }
 
     @Override
     public void update(Genre genre) {
-        TypedQuery<Genre> query = em.createQuery(
-                "update Genre e set e.name = :name where e.id = :id",
-                Genre.class);
+        Query query = em.createQuery(
+                "update Genre e set e.name = :name where e.id = :id");
         query.setParameter("id", genre.getId());
         query.setParameter("name", genre.getName());
         query.executeUpdate();
     }
 
     @Override
-    public void deleteById(int id) {
-        TypedQuery<Genre> query = em.createQuery(
-                "delete from Genre e where e.id = :id",
-                Genre.class);
+    public void deleteById(long id) {
+        Query query = em.createQuery(
+                "delete from Genre e where e.id = :id");
         query.setParameter("id", id);
         query.executeUpdate();
+        em.clear();
     }
 
     @Override
-    public int count() {
-        TypedQuery<Integer> query = em.createQuery(
+    public long count() {
+        TypedQuery<Long> query = em.createQuery(
                 "select count(e) from Genre e",
-                Integer.class);
+                Long.class);
         return query.getSingleResult();
     }
 

@@ -6,10 +6,10 @@ import com.patrushev.home_work_06.model.Genre;
 import java.util.List;
 
 public interface GenreDao {
-    int insert(Genre genre);
-    Genre getById(int id);
+    long insert(Genre genre);
+    Genre getById(long id);
     void update(Genre genre);
-    void deleteById(int id);
-    int count();
+    void deleteById(long id);
+    long count();
     List<Genre> getAll();
 }

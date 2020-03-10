@@ -18,7 +18,7 @@ public class DaoCommands {
     private final BookDao dao;
 
     @ShellMethod(value = "Insert book.", key = "insBook")
-    public int insert(@ShellOption(arity = 1) Book book) {
+    public long insert(@ShellOption(arity = 1) Book book) {
         return dao.insert(book);
     }
 
