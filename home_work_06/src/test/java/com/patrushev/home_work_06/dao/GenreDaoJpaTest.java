@@ -1,5 +1,6 @@
 package com.patrushev.home_work_06.dao;
 
+import com.patrushev.home_work_06.dao.impl.GenreDaoJpa;
 import com.patrushev.home_work_06.model.Genre;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,5 +1,6 @@
 package com.patrushev.home_work_06.dao;
 
+import com.patrushev.home_work_06.dao.impl.BookDaoJpa;
 import com.patrushev.home_work_06.model.Author;
 import com.patrushev.home_work_06.model.Book;
 import com.patrushev.home_work_06.model.Genre;

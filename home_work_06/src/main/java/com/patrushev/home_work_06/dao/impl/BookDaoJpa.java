@@ -1,5 +1,6 @@
-package com.patrushev.home_work_06.dao;
+package com.patrushev.home_work_06.dao.impl;
 
+import com.patrushev.home_work_06.dao.BookDao;
 import com.patrushev.home_work_06.model.Book;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
