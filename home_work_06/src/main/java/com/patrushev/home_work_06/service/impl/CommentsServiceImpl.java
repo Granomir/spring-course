@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CommentsServiceImpl implements CommentsService {
-    private CommentDao dao;
+    private final CommentDao dao;
 
     @Override
     public void addComment(Comment comment) {
@@ -24,7 +24,9 @@ public class CommentsServiceImpl implements CommentsService {
     }
 
     @Override
-    public void editComment(Comment comment) {
+    public void editComment(long id, String body) {
+        Comment comment = dao.getById(id);
+        comment.setBody(body);
         dao.update(comment);
     }
 

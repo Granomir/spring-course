@@ -7,6 +7,6 @@ import java.util.List;
 public interface CommentsService {
     void addComment(Comment comment);
     void deleteComment(long id);
-    void editComment(Comment comment);
+    void editComment(long id, String body);
     List<Comment> getComments(long bookId);
 }

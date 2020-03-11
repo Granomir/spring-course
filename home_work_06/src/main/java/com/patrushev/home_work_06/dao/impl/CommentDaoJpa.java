@@ -36,11 +36,11 @@ public class CommentDaoJpa implements CommentDao {
     @Override
     public void update(Comment comment) {
         Query query = em.createQuery(
-                "update Comment e set e.nickName = :nickName, e.body = :body, e.book = :book where e.id = :id");
+                "update Comment e set e.nickName = :nickName, e.body = :body, e.bookId = :bookId where e.id = :id");
         query.setParameter("id", comment.getId());
         query.setParameter("nickName", comment.getNickName());
         query.setParameter("body", comment.getBody());
-        query.setParameter("book", comment.getBook());
+        query.setParameter("bookId", comment.getBookId());
         query.executeUpdate();
     }
 

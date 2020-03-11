@@ -19,7 +19,6 @@ public class Comment {
     private String nickName;
     @Column(name = "body")
     private String body;
-    @ManyToOne
-    @JoinColumn(name = "book")
-    private Book book;
+    @Column(name = "bookId")
+    private long bookId;
 }
