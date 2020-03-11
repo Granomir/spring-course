@@ -21,4 +21,18 @@ class HomeWork05ApplicationTests {
         System.out.println(gson.fromJson(json, Book.class));
     }
 
+    @Test
+    void serializeAuthor() {
+        Author author = new Author(1, "Толстой");
+        Gson gson = new Gson();
+        System.out.println(gson.toJson(author));
+    }
+
+    @Test
+    void serializeGenre() {
+        Genre genre = new Genre(1, "Классика");
+        Gson gson = new Gson();
+        System.out.println(gson.toJson(genre));
+    }
+
 }
