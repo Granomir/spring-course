@@ -14,7 +14,7 @@ import java.util.List;
 
 @ShellComponent
 @RequiredArgsConstructor
-public class DaoCommands {
+public class BookDaoCommands {
     private final BookDao dao;
 
     @ShellMethod(value = "Insert book.", key = "insBook")

@@ -1,7 +1,6 @@
 package com.patrushev.home_work_06.dao.impl;
 
 import com.patrushev.home_work_06.dao.CommentDao;
-import com.patrushev.home_work_06.model.Book;
 import com.patrushev.home_work_06.model.Comment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

@@ -1,10 +1,7 @@
 package com.patrushev.home_work_06.dao;
 
 import com.patrushev.home_work_06.dao.impl.CommentDaoJpa;
-import com.patrushev.home_work_06.model.Author;
-import com.patrushev.home_work_06.model.Book;
 import com.patrushev.home_work_06.model.Comment;
-import com.patrushev.home_work_06.model.Genre;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
