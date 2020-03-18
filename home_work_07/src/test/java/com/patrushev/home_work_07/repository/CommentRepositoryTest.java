@@ -4,8 +4,6 @@ import com.patrushev.home_work_07.model.Comment;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
@@ -13,8 +11,7 @@ import javax.persistence.EntityNotFoundException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataJpaTest
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-@Transactional(propagation = Propagation.NOT_SUPPORTED)
+@Transactional
 public class CommentRepositoryTest {
     @Autowired
     private CommentRepository repository;
