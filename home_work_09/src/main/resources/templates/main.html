@@ -13,7 +13,11 @@
     </span>
 </p>
 <!--TODO кнопке добавить action-->
-<p align="center"><font color="#FF0000"><i><input name="createBook" type="button" value="добавить книгу"></i></font></p>
+<p>
+    <form action="add.html" align="center" th:action="@{/add}" th:method="get">
+        <input type="submit" value="добавить книгу" />
+    </form>
+</p>
 <table align="center" border="1" cellpadding="1" cellspacing="1" style="width: 500px">
     <caption>Имеющиеся книги:</caption>
     <thead>

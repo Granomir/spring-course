@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 
@@ -26,6 +29,18 @@ public class BookContoller {
         final long count = repo.count();
         model.addAttribute("booksCount", count);
         return "main";
+    }
+
+    @GetMapping("/add")
+    public String addBookPage(Model model) {
+        model.addAttribute("book", new Book());
+        return "add";
+    }
+
+    @PostMapping("/add")
+    public RedirectView addBook(@ModelAttribute Book book) {
+        repo.save(book);
+        return new RedirectView("/");
     }
 
 }

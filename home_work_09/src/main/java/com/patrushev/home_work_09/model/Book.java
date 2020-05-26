@@ -17,10 +17,10 @@ public class Book {
     private long id;
     @Column(name = "title")
     private String title;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "author")
     private Author author;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "genre")
     private Genre genre;
 
