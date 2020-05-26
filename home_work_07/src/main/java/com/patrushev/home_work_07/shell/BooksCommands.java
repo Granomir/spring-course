@@ -2,7 +2,6 @@ package com.patrushev.home_work_07.shell;
 
 import com.google.gson.Gson;
 import com.patrushev.home_work_07.model.Book;
-import com.patrushev.home_work_07.model.Comment;
 import com.patrushev.home_work_07.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.converter.Converter;

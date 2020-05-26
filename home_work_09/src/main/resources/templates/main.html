@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Главная страница</title>
+</head>
+<body>
+<p align="center">Картотека личной библиотеки Патрушева Р. В.</p>
+<hr/>
+<p align="center">
+    <span align="center" th:text="${'Количество книг в библиотеке: ' + booksCount}">
+        Количество книг в библитеке: <font color="#FF0000"><i>11</i></font>
+    </span>
+</p>
+<!--TODO кнопке добавить action-->
+<p align="center"><font color="#FF0000"><i><input name="createBook" type="button" value="добавить книгу"></i></font></p>
+<table align="center" border="1" cellpadding="1" cellspacing="1" style="width: 500px">
+    <caption>Имеющиеся книги:</caption>
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Название</th>
+        <th scope="col">Автор</th>
+        <th scope="col">Жанр</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book : ${books}" th:object="${book}">
+        <td th:text="*{id}">1</td>
+        <td th:text="*{title}">Имаджинариум</td>
+        <td th:text="*{author.getName()}">Инкогнито</td>
+        <td th:text="*{genre.getName()}">Неизвестный жанр</td>
+        <td>
+            <!--TODO кнопке добавить action-->
+            <font color="#FF0000"><i><input name="editBook" type="button" value="редактировать"></i></font>
+        </td>
+        <td>
+            <!--TODO кнопке добавить action-->
+            <font color="#FF0000"><i><input name="editBook" type="button" value="удалить"></i></font>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
