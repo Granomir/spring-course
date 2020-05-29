@@ -27,16 +27,16 @@ public class BookContoller {
         this.genreRepo = genreRepo;
     }
 
-    @GetMapping("/")
+    @GetMapping("/book")
     public String mainPage(Model model) {
         final List<Book> books = bookRepo.findAll();
         model.addAttribute("books", books);
         final long count = bookRepo.count();
         model.addAttribute("booksCount", count);
-        return "main";
+        return "mainBook";
     }
 
-    @GetMapping("/add")
+    @GetMapping("/book/add")
     public String addBookPage(Model model) {
         model.addAttribute("book", new Book());
         model.addAttribute("authors", authorRepo.findAll());
@@ -44,22 +44,19 @@ public class BookContoller {
         return "addBook";
     }
 
-    //TODO проверить создаются ли еще раз авторы/жанры при добавлении книги с уже существующими в БД авторами/жанрами
-    // а еще создаются ли книги, если одинаковое название книги ввести (вообще наверно всё это создается, потому что id же другой у них будет)
-    // TODO по хорошему надо проверять наверно как-то что такие уже существуют и не инсертить лишний раз
     @PostMapping("/book/add")
     public RedirectView addBook(@ModelAttribute Book book) {
         bookRepo.save(book);
-        return new RedirectView("/");
+        return new RedirectView("/book");
     }
 
     @PostMapping("/book/delete")
     public RedirectView deleteBook(@RequestParam long id) {
         bookRepo.deleteById(id);
-        return new RedirectView("/");
+        return new RedirectView("/book");
     }
 
-    @GetMapping("/edit")
+    @GetMapping("/book/edit")
     public String editBookPage(@RequestParam long id, Model model) {
         final Book book = bookRepo.findById(id).orElseThrow(EntityNotFoundException::new);
         model.addAttribute("book", book);
@@ -72,9 +69,7 @@ public class BookContoller {
     public RedirectView updateBook(@ModelAttribute Book book) {
         System.out.println("updating book: " + book);
         bookRepo.save(book);
-        return new RedirectView("/");
+        return new RedirectView("/book");
     }
-
-    //TODO с ALL не работает удаление, а с PERSIST не работает update
 
 }

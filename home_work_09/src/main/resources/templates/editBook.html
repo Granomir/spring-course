@@ -8,7 +8,7 @@
 <p style="text-align: center;">
     Редактирование книги</p>
 <hr/>
-<form id="edit-form" th:action="@{/book/update}" th:method="post" action="main.html" th:object="${book}">
+<form id="edit-form" th:action="@{/book/update}" th:method="post" action="mainBook.html" th:object="${book}">
     <input hidden="true" type="text" th:field="*{id}" th:value="*{id}"/>
     <p style="text-align: center;">
         Название книги:</p>
@@ -17,7 +17,6 @@
     <p style="text-align: center;">
         Автор:</p>
     <p style="text-align: center;">
-<!--        <input name="author" type="text" th:field="*{author.name}"  th:value="*{author.name}" value="Карнеги"/>-->
         <select size="1" th:field="*{author}">
             <option th:each="a : ${authors}" th:text="${a.name}" th:value="${a.id}">Неизвестный</option>
         </select>
@@ -25,7 +24,6 @@
     <p style="text-align: center;">
         Жанр:</p>
     <p style="text-align: center;">
-<!--        <input name="genre" type="text" th:field="*{genre.name}"  th:value="*{genre.name}" value="Психология"/>-->
         <select size="1" th:field="*{genre}">
             <option th:each="g : ${genres}" th:text="${g.name}" th:value="${g.id}">Неизвестный</option>
         </select>
