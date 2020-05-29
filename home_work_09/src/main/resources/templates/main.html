@@ -14,7 +14,7 @@
 </p>
 <!--TODO кнопке добавить action-->
 <p>
-    <form action="add.html" align="center" th:action="@{/add}" th:method="get">
+    <form action="addBook.html" align="center" th:action="@{/add}" th:method="get">
         <input type="submit" value="добавить книгу" />
     </form>
 </p>
@@ -35,13 +35,16 @@
         <td th:text="*{author.name}">Инкогнито</td>
         <td th:text="*{genre.name}">Неизвестный жанр</td>
         <td>
-            <!--TODO кнопке добавить action-->
-            <font color="#FF0000"><i><input name="editBook" type="button" value="редактировать"></i></font>
+<!--            <form action="editBook.html" align="center" th:action="@{/edit(id=*{id})}" th:method="get">-->
+<!--            <font color="#FF0000"><i><input name="editBook" type="submit" value="редактировать"></i></font>-->
+<!--            </form>-->
+            <a th:href="@{/edit(id=*{id})}" href="editBook.html">редактировать</a>
         </td>
         <td>
             <form action="main.html" align="center" th:action="@{/book/delete(id=*{id})}" th:method="post">
-            <font color="#FF0000"><i><input name="delBook" type="submit" value="удалить"></i></font>
+            <font color="#FF0000"><i><input type="submit" value="удалить"></i></font>
             </form>
+<!--            <a th:href="@{/book/delete(id=*{id})}" href="main.html">удалить</a>-->
         </td>
     </tr>
     </tbody>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление книги</title>
+</head>
+<body>
+    <p style="text-align: center;">
+        Добавление книги</p>
+    <hr/>
+    <form id="add-book-form" th:action="@{/book/add}" th:method="post" action="main.html" th:object="${book}">
+        <p style="text-align: center;">
+            Название:</p>
+        <p style="text-align: center;">
+            <input type="text" th:field="*{title}"/></p>
+        <p style="text-align: center;">
+            Автор:</p>
+        <p style="text-align: center;">
+            <select size="1" th:field="*{author}">
+                <option th:each="a : ${authors}" th:text="${a.name}" th:value="${a.id}">Неизвестный</option>
+            </select>
+        </p>
+        <p style="text-align: center;">
+            Жанр:</p>
+        <p style="text-align: center;">
+            <select size="1" th:field="*{genre}">
+                <option th:each="g : ${genres}" th:text="${g.name}" th:value="${g.id}">Неизвестный</option>
+            </select>
+        </p>
+        <p style="text-align: center;">
+            <input type="submit" value="Add"/></p>
+    </form>
+</body>
+</html>
