@@ -45,7 +45,7 @@ public class BookContoller {
     }
 
     @PostMapping("/book/add")
-    public RedirectView addBook(@ModelAttribute Book book) {
+    public RedirectView addBook(Book book) {
         bookRepo.save(book);
         return new RedirectView("/book");
     }
@@ -66,7 +66,7 @@ public class BookContoller {
     }
 
     @PostMapping("/book/update")
-    public RedirectView updateBook(@ModelAttribute Book book) {
+    public RedirectView updateBook(Book book) {
         System.out.println("updating book: " + book);
         bookRepo.save(book);
         return new RedirectView("/book");
