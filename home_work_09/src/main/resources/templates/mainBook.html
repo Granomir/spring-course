@@ -34,9 +34,6 @@
         <td th:text="*{author.name}">Инкогнито</td>
         <td th:text="*{genre.name}">Неизвестный жанр</td>
         <td>
-<!--            <form action="editBook.html" align="center" th:action="@{/book/edit(id=*{id})}">-->
-<!--            <font color="#FF0000"><i><input type="submit" value="редактировать"></i></font>-->
-<!--            </form>-->
             <a th:href="@{/book/edit(id=*{id})}" href="editBook.html">редактировать</a>
         </td>
         <td>
