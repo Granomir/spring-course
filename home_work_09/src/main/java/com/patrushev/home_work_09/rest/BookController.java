@@ -14,14 +14,14 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Controller
-public class BookContoller {
+public class BookController {
 
     private final BookRepository bookRepo;
     private final AuthorRepository authorRepo;
     private final GenreRepository genreRepo;
 
     @Autowired
-    public BookContoller(BookRepository bookRepo, AuthorRepository authorRepo, GenreRepository genreRepo) {
+    public BookController(BookRepository bookRepo, AuthorRepository authorRepo, GenreRepository genreRepo) {
         this.bookRepo = bookRepo;
         this.authorRepo = authorRepo;
         this.genreRepo = genreRepo;
