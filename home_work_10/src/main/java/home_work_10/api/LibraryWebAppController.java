@@ -1,4 +1,4 @@
-package home_work_10.rest;
+package home_work_10.api;
 
 import home_work_10.model.Book;
 import home_work_10.repository.AuthorRepository;
@@ -16,14 +16,14 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Controller
-public class BookController {
+public class LibraryWebAppController {
 
     private final BookRepository bookRepo;
     private final AuthorRepository authorRepo;
     private final GenreRepository genreRepo;
 
     @Autowired
-    public BookController(BookRepository bookRepo, AuthorRepository authorRepo, GenreRepository genreRepo) {
+    public LibraryWebAppController(BookRepository bookRepo, AuthorRepository authorRepo, GenreRepository genreRepo) {
         this.bookRepo = bookRepo;
         this.authorRepo = authorRepo;
         this.genreRepo = genreRepo;

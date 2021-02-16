@@ -4,7 +4,7 @@ import home_work_10.model.Author;
 import home_work_10.model.Book;
 import home_work_10.model.Genre;
 import home_work_10.repository.BookRepository;
-import home_work_10.rest.BookController;
+import home_work_10.api.LibraryWebAppController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -22,8 +22,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(BookController.class)
-public class BookControllerTest {
+@WebMvcTest(LibraryWebAppController.class)
+public class LibraryWebAppControllerTest {
     @Autowired
     private MockMvc mvc;
 
