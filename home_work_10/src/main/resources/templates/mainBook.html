@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Главная страница</title>
+</head>
+<body>
+<p align="center">Картотека личной библиотеки Патрушева Р. В.</p>
+<hr/>
+<p align="center">
+    <span align="center" th:text="${'Количество книг в библиотеке: ' + booksCount}">
+        Количество книг в библитеке: <font color="#FF0000"><i>11</i></font>
+    </span>
+</p>
+<p>
+    <form action="addBook.html" align="center" th:action="@{/book/add}" th:method="get">
+        <input type="submit" value="добавить книгу" />
+    </form>
+</p>
+<table align="center" border="1" cellpadding="1" cellspacing="1" style="width: 500px">
+    <caption>Имеющиеся книги:</caption>
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Название</th>
+        <th scope="col">Автор</th>
+        <th scope="col">Жанр</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book : ${books}" th:object="${book}">
+        <td th:text="*{id}">1</td>
+        <td th:text="*{title}">Имаджинариум</td>
+        <td th:text="*{author.name}">Инкогнито</td>
+        <td th:text="*{genre.name}">Неизвестный жанр</td>
+        <td>
+            <a th:href="@{/book/edit(id=*{id})}" href="editBook.html">редактировать</a>
+        </td>
+        <td>
+            <form action="mainBook.html" align="center" th:action="@{/book/delete(id=*{id})}" th:method="post">
+            <font color="#FF0000"><i><input type="submit" value="удалить"></i></font>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
