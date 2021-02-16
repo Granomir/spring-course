@@ -9,11 +9,11 @@
 <hr/>
 <p align="center">
     <span align="center" th:text="${'Количество книг в библиотеке: ' + booksCount}">
-        Количество книг в библитеке: <font color="#FF0000"><i>11</i></font>
+        Количество книг в библитеке: <span style="color: #FF0000; "><i>11</i></span>
     </span>
 </p>
 <p>
-    <form action="addBook.html" align="center" th:action="@{/book/add}" th:method="get">
+    <form action="addBook.html" align="center" th:action="@{/library/add-book}" th:method="get">
         <input type="submit" value="добавить книгу" />
     </form>
 </p>
@@ -34,11 +34,11 @@
         <td th:text="*{author.name}">Инкогнито</td>
         <td th:text="*{genre.name}">Неизвестный жанр</td>
         <td>
-            <a th:href="@{/book/edit(id=*{id})}" href="editBook.html">редактировать</a>
+            <a th:href="@{/library/edit-book(id=*{id})}" href="editBook.html">редактировать</a>
         </td>
         <td>
             <form action="mainBook.html" align="center" th:action="@{/book/delete(id=*{id})}" th:method="post">
-            <font color="#FF0000"><i><input type="submit" value="удалить"></i></font>
+            <span style="color: #FF0000; "><i><input type="submit" value="удалить"></i></span>
             </form>
         </td>
     </tr>
