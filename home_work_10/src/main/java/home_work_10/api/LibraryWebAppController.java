@@ -13,17 +13,17 @@ public class LibraryWebAppController {
 
     @GetMapping("/library")
     public String mainPage() {
-        return "mainBook";
+        return "mainPage";
     }
 
     @GetMapping("/library/add-book")
     public String addBookPage() {
-        return "addBook";
+        return "addBookPage";
     }
 
     @GetMapping("/library/edit-book")
     public String editBookPage() {
-        return "editBook";
+        return "editBookPage";
     }
 
 }
