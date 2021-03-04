@@ -4,7 +4,7 @@ import com.patrushev.home_work_09.model.Author;
 import com.patrushev.home_work_09.model.Book;
 import com.patrushev.home_work_09.model.Genre;
 import com.patrushev.home_work_09.repository.BookRepository;
-import com.patrushev.home_work_09.rest.BookController;
+import com.patrushev.home_work_09.api.BookController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

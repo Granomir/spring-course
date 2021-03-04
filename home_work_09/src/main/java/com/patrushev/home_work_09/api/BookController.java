@@ -1,4 +1,4 @@
-package com.patrushev.home_work_09.rest;
+package com.patrushev.home_work_09.api;
 
 import com.patrushev.home_work_09.model.Book;
 import com.patrushev.home_work_09.repository.AuthorRepository;
