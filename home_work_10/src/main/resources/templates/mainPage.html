@@ -1,49 +1,90 @@
+<!--отрисовать:-->
+
+<!--1) + количество книг - отдельный рест для получения количества-->
+<!--2) кнопку "добавить книгу" которая будет делать запрос на бек для получения страницы создания книги-->
+<!--3) + таблицу с имеющимися книгами и кнопками-->
+<!--4) в каждой строке таблицы кнопка "редактировать", отправляющая запрос на получение страницы редактирования-->
+<!--5) в каждой строке таблицы кнопка "удалить", отправляющая рест-запрос на удаление и обновляющая таблицу каким-то образом и еще значение в п.1 - видимо делает запрос на получение-->
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Главная страница</title>
-</head>
-<body>
-<p align="center">Картотека личной библиотеки Патрушева Р. В.</p>
-<hr/>
-<p align="center">
-    <span align="center" th:text="${'Количество книг в библиотеке: ' + booksCount}">
-        Количество книг в библитеке: <span style="color: #FF0000; "><i>11</i></span>
-    </span>
-</p>
-<p>
-    <form action="addBook.html" align="center" th:action="@{/library/add-book}" th:method="get">
-        <input type="submit" value="добавить книгу" />
-    </form>
-</p>
-<table align="center" border="1" cellpadding="1" cellspacing="1" style="width: 500px">
-    <caption>Имеющиеся книги:</caption>
-    <thead>
-    <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Название</th>
-        <th scope="col">Автор</th>
-        <th scope="col">Жанр</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="book : ${books}" th:object="${book}">
-        <td th:text="*{id}">1</td>
-        <td th:text="*{title}">Имаджинариум</td>
-        <td th:text="*{author.name}">Инкогнито</td>
-        <td th:text="*{genre.name}">Неизвестный жанр</td>
-        <td>
-            <a th:href="@{/library/edit-book(id=*{id})}" href="editBook.html">редактировать</a>
-        </td>
-        <td>
-            <form action="mainBook.html" align="center" th:action="@{/book/delete(id=*{id})}" th:method="post">
-            <span style="color: #FF0000; "><i><input type="submit" value="удалить"></i></span>
-            </form>
-        </td>
-    </tr>
-    </tbody>
-</table>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Главная страница</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                //объявление функций
+                function getBookCount() {
+                    $.get('/book/count', function (booksCount) {
+                        $('#booksCount').text(booksCount);
+                    })
+                }
 
-</body>
+                //вызов функций
+                // заполняем количество книг
+                getBookCount();
+                // заполняем таблицу с имеющимися книгами и кнопками редактировать и удалить
+                $.getJSON('/book', function (booksList) {
+                    $.each(booksList, function (i, book) {
+                        const editButton = $('<button >').text('редактировать');
+                        const deleteButton = $('<button>').text('удалить');
+                        $('<tr>').append(
+                            $('<td>').text(book.id),
+                            $('<td>').text(book.title),
+                            $('<td>').text(book.author.name),
+                            $('<td>').text(book.genre.name),
+                            $('<td>').append(editButton),
+                            $('<td>').append(deleteButton)
+                        ).appendTo('#bookTable');
+                        //при нажатии на кнопку редактирования шлется запрос на бэк для получения страницы редактирования - типа редирект
+                        editButton.click(function () {
+                            window.location.replace("/library/edit-book/" + book.id);
+                        })
+                        //при нажатии на кнопку удаления шлется запрос на бэк и после успешного ответа удаляется строка и обновляется #booksCount
+                        deleteButton.click(function () {
+                            $.ajax({
+                                url: '/book/' + book.id,
+                                type: 'DELETE',
+                                success: function () {
+                                    deleteButton.parent().parent().remove()
+                                    getBookCount()
+                                }
+                            })
+                        })
+                    })
+                })
+                //при нажатии на кнопку добавления шлется запрос на бэк для получения страницы добавления - типа редирект
+                $('#addButton').click(function () {
+                    window.location.replace("/library/add-book");
+                })
+            });
+        </script>
+    </head>
+    <body>
+        <p align="center">Картотека личной библиотеки Патрушева Р. В.</p>
+        <hr/>
+        <p align="center">
+            <span>
+                Количество книг в библитеке: <span style="color: #FF0000"><i id="booksCount"></i></span>
+            </span>
+        </p>
+        <p align="center">
+            <button id="addButton">Добавить книгу</button>
+        </p>
+        <table align="center" border="1" cellpadding="1" cellspacing="1" style="width: 500px">
+            <caption>Имеющиеся книги:</caption>
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Название</th>
+                <th scope="col">Автор</th>
+                <th scope="col">Жанр</th>
+            </tr>
+            </thead>
+            <tbody id="bookTable">
+                <!--здесь будут строки с книгами и кнопками редактировать и удалить-->
+            </tbody>
+        </table>
+    </body>
 </html>

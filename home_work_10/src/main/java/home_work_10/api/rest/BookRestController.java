@@ -38,6 +38,11 @@ public class BookRestController {
         return bookRepo.save(book);
     }
 
+    @PutMapping("/book")
+    public Book updateBook(@RequestBody Book book) {
+        return bookRepo.save(book);
+    }
+
     @DeleteMapping("/book/{id}")
     public void deleteBookById(@PathVariable long id) {
         bookRepo.deleteById(id);

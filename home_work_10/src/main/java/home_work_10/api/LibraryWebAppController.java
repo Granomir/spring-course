@@ -21,7 +21,7 @@ public class LibraryWebAppController {
         return "addBookPage";
     }
 
-    @GetMapping("/library/edit-book")
+    @GetMapping("/library/edit-book/{bookId}")
     public String editBookPage() {
         return "editBookPage";
     }

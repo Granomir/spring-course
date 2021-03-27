@@ -1,34 +1,82 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Добавление книги</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            //заполняем селекты авторами
+            $.getJSON('/author', function (authorsList) {
+                $('#authorSelect').empty()
+                $.each(authorsList, function (i, author) {
+                    const text = $('<option>').text(author.name);
+                    text.attr('id', author.id);
+                    text.appendTo('#authorSelect');
+                })
+            })
+            //заполняем селекты жанрами
+            $.getJSON('/genre', function (genresList) {
+                $('#genreSelect').empty()
+                $.each(genresList, function (i, genre) {
+                    const text = $('<option>').text(genre.name);
+                    text.attr('id', genre.id);
+                    text.appendTo('#genreSelect');
+                })
+            })
+            //по кнопке добавить отправляем данные из формы в виде json по урлу POST /book
+            $('#addButton').click(function (e) {
+                e.preventDefault();
+                const $authorSelect = $("#authorSelect option:selected");
+                const $genreSelect = $("#genreSelect option:selected");
+                $.ajax({
+                    url: '/book',
+                    dataType: 'json',
+                    contentType: "application/json",
+                    type: 'POST',
+                    data: JSON.stringify({
+                        title: $('#bookName').val(),
+                        author: {
+                            id: $authorSelect.attr('id'),
+                            name: $authorSelect.text()
+                        },
+                        genre: {
+                            id: $genreSelect.attr('id'),
+                            name: $genreSelect.text()
+                        }
+                    })
+                })
+                    .done(function () {
+                        //делаем редирект на mainPage
+                        window.location.href = "/library";
+                    })
+            })
+        });
+    </script>
 </head>
 <body>
-    <p style="text-align: center;">
-        Добавление книги</p>
+    <p style="text-align: center;">Добавление книги</p>
     <hr/>
-    <form id="add-book-form" th:action="@{/book/add}" th:method="post" action="mainBook.html" th:object="${book}">
+    <form id="add-book-form">
+        <p style="text-align: center;">Название:</p>
         <p style="text-align: center;">
-            Название:</p>
+            <input type="text" id="bookName"/>
+        </p>
+        <p style="text-align: center;">Автор:</p>
         <p style="text-align: center;">
-            <input type="text" th:field="*{title}"/></p>
+            <select size="1" id="authorSelect">
+                <option>Неизвестный</option>
+            </select>
+        </p>
+        <p style="text-align: center;">Жанр:</p>
         <p style="text-align: center;">
-            Автор:</p>
-        <p style="text-align: center;">
-            <select size="1" th:field="*{author}">
-                <option th:each="a : ${authors}" th:text="${a.name}" th:value="${a.id}">Неизвестный</option>
+            <select size="1" id="genreSelect">
+                <option>Неизвестный</option>
             </select>
         </p>
         <p style="text-align: center;">
-            Жанр:</p>
-        <p style="text-align: center;">
-            <select size="1" th:field="*{genre}">
-                <option th:each="g : ${genres}" th:text="${g.name}" th:value="${g.id}">Неизвестный</option>
-            </select>
+            <button id="addButton">Добавить</button>
         </p>
-        <p style="text-align: center;">
-            <input type="submit" value="Add"/></p>
     </form>
 </body>
 </html>
