@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Главная страница</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                //объявление функций
+                function getBookCount() {
+                    $.get('/book/count', function (booksCount) {
+                        $('#booksCount').text(booksCount);
+                    })
+                }
+
+                //вызов функций
+                // заполняем количество книг
+                getBookCount();
+                // заполняем таблицу с имеющимися книгами и кнопками редактировать и удалить
+                $.getJSON('/book', function (booksList) {
+                    $.each(booksList, function (i, book) {
+                        const editButton = $('<button >').text('редактировать');
+                        const deleteButton = $('<button>').text('удалить');
+                        $('<tr>').append(
+                            $('<td>').text(book.id),
+                            $('<td>').text(book.title),
+                            $('<td>').text(book.author.name),
+                            $('<td>').text(book.genre.name),
+                            $('<td>').append(editButton),
+                            $('<td>').append(deleteButton)
+                        ).appendTo('#bookTable');
+                        //при нажатии на кнопку редактирования шлется запрос на бэк для получения страницы редактирования - типа редирект
+                        editButton.click(function () {
+                            window.location.replace("/library/edit-book/" + book.id);
+                        })
+                        //при нажатии на кнопку удаления шлется запрос на бэк и после успешного ответа удаляется строка и обновляется #booksCount
+                        deleteButton.click(function () {
+                            $.ajax({
+                                url: '/book/' + book.id,
+                                type: 'DELETE',
+                                success: function () {
+                                    deleteButton.parent().parent().remove()
+                                    getBookCount()
+                                }
+                            })
+                        })
+                    })
+                })
+                //при нажатии на кнопку добавления шлется запрос на бэк для получения страницы добавления - типа редирект
+                $('#addButton').click(function () {
+                    window.location.replace("/library/add-book");
+                })
+            });
+        </script>
+    </head>
+    <body>
+        <p align="center">Картотека личной библиотеки Патрушева Р. В.</p>
+        <hr/>
+        <p align="center">
+            <span>
+                Количество книг в библитеке: <span style="color: #FF0000"><i id="booksCount"></i></span>
+            </span>
+        </p>
+        <p align="center">
+            <button id="addButton">Добавить книгу</button>
+        </p>
+        <table align="center" border="1" cellpadding="1" cellspacing="1" style="width: 500px">
+            <caption>Имеющиеся книги:</caption>
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Название</th>
+                <th scope="col">Автор</th>
+                <th scope="col">Жанр</th>
+            </tr>
+            </thead>
+            <tbody id="bookTable">
+                <!--здесь будут строки с книгами и кнопками редактировать и удалить-->
+            </tbody>
+        </table>
+    </body>
+</html>
