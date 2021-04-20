@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @RestController
 public class AuthorRestController {
@@ -21,12 +21,12 @@ public class AuthorRestController {
     }
 
     @GetMapping("/author")
-    public List<Author> getAllAuthors() {
+    public Flux<Author> getAllAuthors() {
         return authorRepo.findAll();
     }
 
     @PostMapping("/author")
-    public Author saveAuthor(@RequestBody Author author) {
+    public Mono<Author> saveAuthor(@RequestBody Author author) {
         return authorRepo.save(author);
     }
 

@@ -5,8 +5,8 @@ import home_work_11.model.Book;
 import home_work_11.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @RestController
 public class BookRestController {
@@ -19,28 +19,28 @@ public class BookRestController {
     }
 
     @GetMapping("/book")
-    public List<Book> getAllBooks() {
+    public Flux<Book> getAllBooks() {
         return bookRepo.findAll();
     }
 
     @GetMapping("/book/{id}")
-    public Book getBookById(@PathVariable long id) {
-        return bookRepo.findById(id).orElseThrow(NotFoundException::new);
+    public Mono<Book> getBookById(@PathVariable long id) {
+        return bookRepo.findById(id).switchIfEmpty(Mono.error(new NotFoundException()));
     }
 
     @GetMapping("/book/count")
-    public long getBooksCount() {
+    public Mono<Long> getBooksCount() {
         return bookRepo.count();
     }
 
     @PostMapping("/book")
-    public Book saveBook(@RequestBody Book book) {
+    public Mono<Book> saveBook(@RequestBody Book book) {
         book.setId((int) (Math.random() * (999999 - 1)) + 1);
         return bookRepo.save(book);
     }
 
     @PutMapping("/book")
-    public Book updateBook(@RequestBody Book book) {
+    public Mono<Book> updateBook(@RequestBody Book book) {
         return bookRepo.save(book);
     }
 

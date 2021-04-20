@@ -1,7 +1,7 @@
 package home_work_11.repository;
 
 import home_work_11.model.Author;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 
-public interface AuthorRepository extends MongoRepository<Author, Long> {
+public interface AuthorRepository extends ReactiveMongoRepository<Author, Long> {
 }

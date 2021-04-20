@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @RestController
 public class GenreRestController {
@@ -21,12 +21,12 @@ public class GenreRestController {
     }
 
     @GetMapping("/genre")
-    public List<Genre> getAllBooks() {
+    public Flux<Genre> getAllBooks() {
         return genreRepo.findAll();
     }
 
     @PostMapping("/genre")
-    public Genre saveGenre(@RequestBody Genre genre) {
+    public Mono<Genre> saveGenre(@RequestBody Genre genre) {
         return genreRepo.save(genre);
     }
 
