@@ -1,6 +1,6 @@
-package home_work_10.repository;
+package home_work_12.repository;
 
-import home_work_10.model.Book;
+import home_work_12.model.Book;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -1,4 +1,4 @@
-package home_work_10.model;
+package home_work_12.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,7 +1,7 @@
-package home_work_10.api.rest;
+package home_work_12.api.rest;
 
-import home_work_10.model.Book;
-import home_work_10.repository.BookRepository;
+import home_work_12.model.Book;
+import home_work_12.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

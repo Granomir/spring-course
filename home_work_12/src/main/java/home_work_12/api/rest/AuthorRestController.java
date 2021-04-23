@@ -1,7 +1,7 @@
-package home_work_10.api.rest;
+package home_work_12.api.rest;
 
-import home_work_10.model.Author;
-import home_work_10.repository.AuthorRepository;
+import home_work_12.model.Author;
+import home_work_12.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
