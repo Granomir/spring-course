@@ -7,3 +7,7 @@ spring:
       database: test
       port: 27017
       host: localhost
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
